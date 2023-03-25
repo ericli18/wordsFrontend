@@ -1,0 +1,18 @@
+
+
+.word {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: black;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: gray;
+    transition: all 0.5s ease-in-out;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5em;
+}
+
+.word:hover {
+    color: white;
+}
