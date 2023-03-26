@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = 'http://localhost:3000/words';
+const baseUrl = 'api/words';
 
 const getAll = () => {
     const persons = axios.get(baseUrl)
