@@ -10,6 +10,9 @@ const App = () => {
     wordService.getAll().then((initialWords) => {
       setWords(initialWords);
       console.log(initialWords[0]);
+      for (let i = 0; i < initialWords.length; i++) {
+        wordService.create(initialWords[i]);
+      }
     });
   }, []);
 
