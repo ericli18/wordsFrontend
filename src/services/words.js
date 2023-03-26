@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = 'http://localhost:3000/words';
+const baseUrl = '/api/words';
 
 const getAll = () => {
     const persons = axios.get(baseUrl)
@@ -7,7 +7,7 @@ const getAll = () => {
 }
   
 const create = newObject => {
-    const person = axios.post("http://localhost:3001/api/words", newObject)
+    const person = axios.post(baseUrl, newObject)
     return person.then(response => response.data)
 }
 
