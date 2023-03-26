@@ -15,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     if(words.length > 0) {
-      setSelectedWord(getRandomId());
+      setSelectedWord(hashDate());
     }
   }, [words]);
 
@@ -27,6 +27,16 @@ const App = () => {
     temp.etymology = trimWord(temp.etymology);
     return temp;
   };
+
+  const hashDate = () => {
+    const date = new Date();
+    const id = (date.getDate() + date.getMonth() + date.getFullYear()) * 15;
+    const temp = words[id%words.length];
+    temp.word = trimWord(temp.word);
+    temp.definition = trimWord(temp.definition);
+    temp.etymology = trimWord(temp.etymology);
+    return temp;
+  }
 
   const trimWord = (entry) => {
     return entry.substring(2, entry.length - 2);
@@ -50,7 +60,7 @@ const App = () => {
   return (
     <div>
       <div className="stars">
-        
+
       </div>
       <div className="twinkling">
       </div>

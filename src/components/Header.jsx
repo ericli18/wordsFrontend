@@ -23,7 +23,7 @@ const Header = ({ showAll }) => {
   return (
     <header>
       <h1>
-        Sorrow of the Day: {month} {day}, {year}
+        {month} {day}, {year}
       </h1>
       {/* <p onClick={showAll}>Show All</p> */}
     </header>
