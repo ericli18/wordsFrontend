@@ -99,7 +99,7 @@ header{
     color: white;
 }
 
-.important{
+.magic{
     height: 6rem;
 }
 
@@ -129,10 +129,4 @@ header{
     font-size: 5rem;
     transition: .5s ease-in-out;
     opacity: 100%;
-}
-
-.important > .star{
-
-
-
 }
