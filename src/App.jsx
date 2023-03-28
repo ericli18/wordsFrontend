@@ -45,7 +45,7 @@ const App = () => {
     //bro this is so jank
     if(date < new Date().setTime(new Date().getTime() - subtract) && change === 1) 
       setDate(new Date(date.setDate(date.getDate() + change)));
-    else if(date > new Date(2021, 0, 1) && change === -1)
+    else if(date > new Date(2023, 2, 27) && change === -1)
       setDate(new Date(date.setDate(date.getDate() + change)));
     console.log(date);
   };

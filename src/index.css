@@ -1,5 +1,5 @@
 :root{
-    --purple: #8e44ad;
+    --purple: #ae4bd8;
     --violet: #d085ee;
     --pink: #ff4ed3;
 }
@@ -106,9 +106,9 @@ header > h1{
     line-height: 1.5em;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
     .info {
-        font-size: 1rem;
+        font-size: 4vw;
         padding: 75px;
         padding-top: 0px;
     }
@@ -129,7 +129,7 @@ header > h1{
     height: 100%;
     text-align: center;
     font-size: 4rem;
-    animation: background-pan 10s linear infinite;
+    animation: background-pan 4s linear infinite;
     transition: .5s ease-in-out;
     padding: 20px;
     background: linear-gradient(
@@ -158,4 +158,35 @@ header > h1{
 
 .arrow {
     cursor: pointer;
+    transition: .5s ease-in-out;
+    font-size: 40px;
+}
+
+.arrow:hover {
+    transform: scale(1.2);
+}
+
+.headerLeft, .headerRight{
+    width: 50px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.headerLeft{
+    justify-content: flex-end;
+}
+
+.headerCenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 400px
+}
+
+@media screen and (max-width: 800px) {
+    .headerCenter{
+        width: 300px;
+    }
 }

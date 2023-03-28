@@ -17,16 +17,39 @@ const Header = ({ changeDate, dateIn }) => {
 
   const date = dateIn || new Date();
   const day = date.getDate();
-  const month = monthNames[date.getMonth()];
+  let month = monthNames[date.getMonth()];
+
+  if(screen.width < 800) 
+    month = month.substring(0, 3);
   const year = date.getFullYear();
+
+  const checkRight = () => {
+    const subtract = 24 * 60 * 60 * 1000;
+    if (date < new Date().setTime(new Date().getTime() - subtract)) 
+      return <AiOutlineArrowRight className="arrow" onClick={() => changeDate(date, 1)} />
+    else
+      return null;
+  }
+
+  const checkLeft = () => {
+    if(date > new Date(2023, 2, 27))
+      return <AiOutlineArrowLeft className="arrow" onClick={() => changeDate(date, -1)} />
+    else
+      return null;
+  }
 
   return (
     <header>
-      <AiOutlineArrowLeft className="arrow" onClick={() => changeDate(date, -1)} />
-      <h1>
-        {month} {day}, {year}
-      </h1>
-      <AiOutlineArrowRight className="arrow" onClick={() => changeDate(date, 1)} />
+      <div className='headerLeft'>
+      {checkLeft()}
+      </div>
+
+      <div className="headerCenter">
+        <h1>
+          {month} {day}, {year}
+        </h1>
+      </div>
+      <div className="headerRight">{checkRight()}</div>
       {/* <p onClick={showAll}>Show All</p> */}
     </header>
   );
