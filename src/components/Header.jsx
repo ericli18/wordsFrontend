@@ -1,4 +1,5 @@
-const Header = ({ showAll }) => {
+import {AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai'
+const Header = ({ changeDate, dateIn }) => {
   const monthNames = [
     "January",
     "February",
@@ -14,17 +15,18 @@ const Header = ({ showAll }) => {
     "December",
   ];
 
-  const date = new Date();
+  const date = dateIn || new Date();
   const day = date.getDate();
   const month = monthNames[date.getMonth()];
   const year = date.getFullYear();
-  console.log(date);
 
   return (
     <header>
+      <AiOutlineArrowLeft className="arrow" onClick={() => changeDate(date, -1)} />
       <h1>
         {month} {day}, {year}
       </h1>
+      <AiOutlineArrowRight className="arrow" onClick={() => changeDate(date, 1)} />
       {/* <p onClick={showAll}>Show All</p> */}
     </header>
   );

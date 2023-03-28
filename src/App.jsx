@@ -6,6 +6,7 @@ import Word from "./components/Words";
 const App = () => {
   const [words, setWords] = useState([]);
   const [selectedWord, setSelectedWord] = useState(null);
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     wordService.getAll().then((initialWords) => {
@@ -15,9 +16,9 @@ const App = () => {
 
   useEffect(() => {
     if(words.length > 0) {
-      setSelectedWord(hashDate());
+      setSelectedWord(hashDate(date));
     }
-  }, [words]);
+  }, [words, date]);
 
   const getRandomId = () => {
     const randomIndex = Math.floor(Math.random() * words.length);
@@ -28,15 +29,28 @@ const App = () => {
     return temp;
   };
 
-  const hashDate = () => {
-    const date = new Date();
+  const hashDate = (date) => {
     const id = (date.getDate() + date.getMonth() + date.getFullYear()) * 15;
     const temp = words[id%words.length];
+    if(temp.word[0] === '['){
     temp.word = trimWord(temp.word);
     temp.definition = trimWord(temp.definition);
     temp.etymology = trimWord(temp.etymology);
+  }
     return temp;
   }
+
+  const changeDate = (date, change) => {
+    const subtract = 24*60*60*1000;
+    //bro this is so jank
+    if(date < new Date().setTime(new Date().getTime() - subtract) && change === 1) 
+      setDate(new Date(date.setDate(date.getDate() + change)));
+    else if(date > new Date(2021, 0, 1) && change === -1)
+      setDate(new Date(date.setDate(date.getDate() + change)));
+    console.log(date);
+  };
+
+  
 
   const trimWord = (entry) => {
     return entry.substring(2, entry.length - 2);
@@ -68,7 +82,7 @@ const App = () => {
         <div className="blocker1"></div>
         <div className="blocker2"></div>
       </div> */}
-      <Header showAll={handleNextWord}/>
+      <Header dateIn={date} changeDate={changeDate}/>
       <Word selectedWord={selectedWord} />
     </div>
   );
