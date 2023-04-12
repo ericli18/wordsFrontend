@@ -7,6 +7,7 @@ const App = () => {
   const [words, setWords] = useState([]);
   const [selectedWord, setSelectedWord] = useState(null);
   const [date, setDate] = useState(new Date());
+  const [run, setRun] = useState(false);
 
   useEffect(() => {
     wordService.getAll().then((initialWords) => {
@@ -31,12 +32,17 @@ const App = () => {
 
   const hashDate = (date) => {
     const id = (date.getDate() + date.getMonth() + date.getFullYear()) * 15;
-    const temp = words[id % words.length];
+    let counter = id % words.length;
+    while (words[counter].access) {
+      counter++;
+    }
+    const temp = words[counter];
     if (temp.word[0] === "[") {
       temp.word = trimWord(temp.word);
       temp.definition = trimWord(temp.definition);
       temp.etymology = trimWord(temp.etymology);
     }
+    wordService.update(temp.id, date);
     return temp;
   };
 
@@ -50,7 +56,6 @@ const App = () => {
       setDate(new Date(date.setDate(date.getDate() + change)));
     else if (date > new Date(2023, 2, 27) && change === -1)
       setDate(new Date(date.setDate(date.getDate() + change)));
-    console.log(date);
   };
 
   const trimWord = (entry) => {
@@ -61,27 +66,18 @@ const App = () => {
     setSelectedWord(getRandomId());
   };
 
-  const removeBlocker = () => {
-    const blockContainer = document.querySelector(".blockContainer");
-    const blocker1 = document.querySelector(".blocker1");
-    const blocker2 = document.querySelector(".blocker2");
-    blocker1.classList.add("blocker1Remove");
-    blocker2.classList.add("blocker2Remove");
-    setTimeout(() => {
-      blockContainer.remove();
-    }, 2000);
-  };
-
   return (
     <div>
       <div className="stars"></div>
       <div className="twinkling"></div>
-      {/* <div className="blockContainer" onClick={removeBlocker}>
-        <div className="blocker1"></div>
-        <div className="blocker2"></div>
-      </div> */}
       <Header dateIn={date} changeDate={changeDate} />
-      <Word selectedWord={selectedWord} />
+      <Word
+        selectedWord={selectedWord}
+        setSelectedWord={setSelectedWord}
+        hashDate={hashDate}
+        run = {run}
+        setRun = {setRun}
+      />
     </div>
   );
 };
