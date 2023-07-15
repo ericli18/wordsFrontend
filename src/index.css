@@ -4,24 +4,6 @@
   --pink: #ff4ed3;
 }
 
-@keyframes background-pan {
-  from {
-    background-position: 0% center;
-  }
-  to {
-    background-position: 100% center;
-  }
-}
-
-@keyframes move-twinkle-back {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -10000px 5000px;
-  }
-}
-
 html {
   background-color: rgb(10, 10, 10);
   color: white;
@@ -41,54 +23,6 @@ header {
 
 header > h1 {
   user-select: none;
-}
-
-.stars,
-.twinkling {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.stars {
-  background: black url("./components/stars.png") repeat top center;
-  z-index: -3;
-}
-
-.twinkling {
-  background: transparent url(./components/twinkling.png) repeat top center;
-  z-index: -2;
-  animation: move-twinkle-back 200s linear infinite;
-}
-
-.blocker1,
-.blocker2 {
-  width: 50%;
-  height: 100vh;
-  background-color: black;
-  position: absolute;
-  transition: 2s ease-in-out;
-}
-
-.blocker1 {
-  left: 0;
-}
-
-.blocker2 {
-  right: 0;
-}
-
-.blocker1Remove {
-  opacity: 0;
-}
-
-.blocker2Remove {
-  opacity: 0;
 }
 
 .word {
@@ -198,41 +132,4 @@ header > h1 {
   .magic > .text {
     font-size: 2.5rem;
   }
-}
-
-.funny{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-}
-
-.funny > button {
-    cursor: pointer;
-    background-color: var(--purple);
-    border: none;
-    color: white;
-    font-size: 2rem;
-    transition: 0.5s ease-in-out;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-.funny > button:hover {
-    background-color: var(--violet);
-    transition: 0.5s ease-in-out;
-}
-
-.funny > a 
-{
-    cursor: pointer;
-    text-decoration: underline;
-    color: gray;
-    font-size: .75rem;
-    transition: 0.5s ease-in-out;
-}
-
-.funny > a:hover {
-    color: white;
-    transition: 0.5s ease-in-out;
 }

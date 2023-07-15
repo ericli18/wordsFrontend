@@ -1,63 +1,50 @@
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
-const Header = ({ changeDate, dateIn }) => {
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+import loginService from "../services/login";
+import { useState } from "react";
 
-  const date = dateIn || new Date();
-  const day = date.getDate();
-  let month = monthNames[date.getMonth()];
+const Header = ({ user, setUser }) => {
+    const [username, setuserName] = useState("");
+    const [password, setPassword] = useState("");
 
-  if (screen.width < 800) month = month.substring(0, 3);
-  const year = date.getFullYear();
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        try {
+            const user = await loginService.login({ username, password });
+            setUser(user);
+            console.log(user);
+        } catch (exception) {
+            console.log("----");
+        }
+    };
 
-  const checkRight = () => {
-    const subtract = 24 * 60 * 60 * 1000;
-    if (date < new Date().setTime(new Date().getTime() - subtract))
-      return (
-        <AiOutlineArrowRight
-          className="arrow"
-          onClick={() => changeDate(date, 1)}
-        />
-      );
-    else return null;
-  };
+    const loginForm = () => (
+        <form onSubmit={handleLogin}>
+            <div>
+                username:
+                <input
+                    type='text'
+                    value={username}
+                    name='username'
+                    onChange={({ target }) => setuserName(target.value)}
+                />
+            </div>
+            <div>
+                password:
+                <input
+                    type='password'
+                    value={password}
+                    name='password'
+                    onChange={({ target }) => setPassword(target.value)}
+                />
+            </div>
+            <button type="submit">login</button>
+        </form>
+    );
 
-  const checkLeft = () => {
-    if (date > new Date(2023, 2, 27))
-      return (
-        <AiOutlineArrowLeft
-          className="arrow"
-          onClick={() => changeDate(date, -1)}
-        />
-      );
-    else return null;
-  };
-
-  return (
-    <header>
-      <div className="headerLeft">{checkLeft()}</div>
-
-      <div className="headerCenter">
-        <h1>
-          {month} {day}, {year}
-        </h1>
+    return (
+      <div>
+        {loginForm()}
       </div>
-      <div className="headerRight">{checkRight()}</div>
-      {/* <p onClick={showAll}>Show All</p> */}
-    </header>
-  );
+    )
 };
 
 export default Header;

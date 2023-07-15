@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import wordService from "./services/words";
-import Header from "./components/Header";
+import WordHeader from "./components/WordHeader";
+import Header from "./components/Header"
 import Word from "./components/Words";
 
 const App = () => {
@@ -8,6 +9,7 @@ const App = () => {
   const [selectedWord, setSelectedWord] = useState(null);
   const [date, setDate] = useState(new Date());
   const [run, setRun] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     wordService.getAll().then((initialWords) => {
@@ -21,28 +23,14 @@ const App = () => {
     }
   }, [words, date]);
 
-  const getRandomId = () => {
-    const randomIndex = Math.floor(Math.random() * words.length);
-    const temp = words[randomIndex];
-    temp.word = trimWord(temp.word);
-    temp.definition = trimWord(temp.definition);
-    temp.etymology = trimWord(temp.etymology);
-    return temp;
-  };
 
   const hashDate = (date) => {
     const id = (date.getDate() + date.getMonth() + date.getFullYear()) * 15;
     let counter = id % words.length;
-    while (words[counter].access) {
+    while (words[counter].dateAccessed == 0) {//will decide whether or not to implement later
       counter++;
     }
     const temp = words[counter];
-    if (temp.word[0] === "[") {
-      temp.word = trimWord(temp.word);
-      temp.definition = trimWord(temp.definition);
-      temp.etymology = trimWord(temp.etymology);
-    }
-    wordService.update(temp.id, date);
     return temp;
   };
 
@@ -58,19 +46,10 @@ const App = () => {
       setDate(new Date(date.setDate(date.getDate() + change)));
   };
 
-  const trimWord = (entry) => {
-    return entry.substring(2, entry.length - 2);
-  };
-
-  const handleNextWord = () => {
-    setSelectedWord(getRandomId());
-  };
-
   return (
     <div>
-      <div className="stars"></div>
-      <div className="twinkling"></div>
-      <Header dateIn={date} changeDate={changeDate} />
+      <Header user={user} setUser={setUser}/>
+      <WordHeader dateIn={date} changeDate={changeDate} />
       <Word
         selectedWord={selectedWord}
         setSelectedWord={setSelectedWord}
