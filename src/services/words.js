@@ -1,8 +1,19 @@
 import axios from "axios";
 const baseUrl = "http://localhost:3001/api/words";
 
+let token = null;
+
+const setToken = (newToken) => {
+  token = `Bearer ${newToken}`
+}
+
 const getAll = async () => {
     const response = await axios.get(baseUrl);
+    return response.data;
+};
+
+const getOne = async (id) => {
+    const response = await axios.get(`${baseUrl}/${id}`);
     return response.data;
 };
 
@@ -21,4 +32,4 @@ const update = async (id, date) => {
     return response.data;
 };
 
-export default { getAll, create, remove, update };
+export default { getAll, create, remove, update, setToken, getOne };

@@ -1,8 +1,9 @@
 import loginService from "../services/login";
+import wordService from "../services/words";
 import { useState } from "react";
 
 const Header = ({ user, setUser }) => {
-    const [username, setuserName] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const handleLogin = async (event) => {
@@ -10,10 +11,20 @@ const Header = ({ user, setUser }) => {
         try {
             const user = await loginService.login({ username, password });
             setUser(user);
-            console.log(user);
+            wordService.setToken(user.token);
+
+            window.localStorage.setItem("loggedUser", JSON.stringify(user));
+            setUsername("");
+            setPassword("");
         } catch (exception) {
-            console.log("----");
+            console.log(exception);
         }
+    };
+
+    const handleLogout = async (event) => {
+        event.preventDefault();
+        window.localStorage.removeItem("loggedUser");
+        setUser(null);
     };
 
     const loginForm = () => (
@@ -24,7 +35,7 @@ const Header = ({ user, setUser }) => {
                     type='text'
                     value={username}
                     name='username'
-                    onChange={({ target }) => setuserName(target.value)}
+                    onChange={({ target }) => setUsername(target.value)}
                 />
             </div>
             <div>
@@ -36,15 +47,20 @@ const Header = ({ user, setUser }) => {
                     onChange={({ target }) => setPassword(target.value)}
                 />
             </div>
-            <button type="submit">login</button>
+            <button type='submit'>login</button>
         </form>
     );
 
-    return (
-      <div>
-        {loginForm()}
-      </div>
-    )
+    const welcomeForm = () => (
+        <div>
+            <div>Welcome, {user.username}!</div>
+            <form onSubmit={handleLogout}>
+                <button type='submit'>log out</button>
+            </form>
+        </div>
+    );
+
+    return <div>{user === null ? loginForm() : welcomeForm()}</div>;
 };
 
 export default Header;

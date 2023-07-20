@@ -37,7 +37,7 @@ header > h1 {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.75rem;
   font-weight: bold;
-  color: gray;
+  color: rgb(199, 192, 192);
   transition: all 0.5s ease-in-out;
   margin: 0;
   padding: 200px;
@@ -82,7 +82,7 @@ header > h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   white-space: nowrap;
-  opacity: 60%;
+  opacity: 80%;
   user-select: all;
   height: 4rem;
 }
