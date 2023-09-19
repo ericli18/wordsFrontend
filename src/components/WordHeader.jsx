@@ -55,7 +55,6 @@ const WordHeader = ({ changeDate, dateIn }) => {
         </h1>
       </div>
       <div className="headerRight">{checkRight()}</div>
-      {/* <p onClick={showAll}>Show All</p> */}
     </header>
   );
 };
