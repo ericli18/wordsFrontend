@@ -6,42 +6,42 @@ const changeDate = (date, change) => {
     date < new Date().setTime(new Date().getTime() - subtract) &&
     change === 1
   )
-    return (new Date(date.setDate(date.getDate() + change)));
+    return new Date(date.setDate(date.getDate() + change));
   else if (date > new Date(2023, 2, 27) && change === -1)
-    return (new Date(date.setDate(date.getDate() + change)));
+    return new Date(date.setDate(date.getDate() + change));
 };
 
-const dateReducer = ( state = new Date(), action ) => {
+const dateReducer = (state, action) => {
   switch (action.type) {
     case "INC":
-      return changeDate(state, 1)
+      return changeDate(state, 1);
     case "DEC":
-      return changeDate(state, -1)
+      return changeDate(state, -1);
     case "ZERO":
-      return new Date()
+      return new Date();
   }
-}
+};
 
-const DateContext = createContext()
+const DateContext = createContext();
 
 export const DateContextProvider = (props) => {
-  const [date, dateDispatch] = useReducer(dateReducer, 0)
+  const [date, dateDispatch] = useReducer(dateReducer, new Date());
 
   return (
-    <DateContext.Provider value={[date, dateDispatch] }>
+    <DateContext.Provider value={[date, dateDispatch]}>
       {props.children}
     </DateContext.Provider>
-  )
-}
+  );
+};
 
 export const useDateValue = () => {
-  const dateAndDispatch = useContext(DateContext)
-  return dateAndDispatch[0]
-}
+  const dateAndDispatch = useContext(DateContext);
+  return dateAndDispatch[0];
+};
 
-export const useCounterDispatch = () => {
-  const dateAndDispatch = useContext(DateContext)
-  return dateAndDispatch[1]
-}
+export const useDateDispatch = () => {
+  const dateAndDispatch = useContext(DateContext);
+  return dateAndDispatch[1];
+};
 
-export default CounterContext
+export default DateContext;

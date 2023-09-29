@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Word from "./components/Word";
 import WordDisplay from "./components/WordDisplay";
 import { QueryClient,  QueryClientProvider } from "@tanstack/react-query";
+import { useDateDispatch } from "./contexts/DateContext";
 
 const App = () => {
   const queryClient = new QueryClient();
