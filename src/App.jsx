@@ -5,8 +5,7 @@ import WordHeader from "./components/WordHeader";
 import Header from "./components/Header";
 import Word from "./components/Word";
 import WordDisplay from "./components/WordDisplay";
-import { QueryClient,  QueryClientProvider } from "@tanstack/react-query";
-import { useDateDispatch } from "./contexts/DateContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -16,12 +15,6 @@ const App = () => {
   const [likedWords, setLikedWords] = useState([]);
   const [date, setDate] = useState(new Date());
   const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    wordService.getAll().then((initialWords) => {
-      setWords(initialWords);
-    });
-  }, []);
 
   useEffect(() => {
     const tempUser = window.localStorage.getItem("loggedUser");
@@ -38,21 +31,6 @@ const App = () => {
     }
   }, [words, date]);
 
-  useEffect(() => {
-    const getWords = async () => {
-      try {
-        const words = await userService.getWords(user.id);
-        setLikedWords(words.map((word) => word.id));
-      } catch (exception) {
-        console.log(exception);
-      }
-    };
-
-    if (user !== null) {
-      getWords();
-    }
-  }, [user]);
-
   const hashDate = (date) => {
     const id = (date.getDate() + date.getMonth() + date.getFullYear()) * 15;
     let counter = id % words.length;
@@ -64,29 +42,17 @@ const App = () => {
     return temp;
   };
 
-  const changeDate = (date, change) => {
-    const subtract = 24 * 60 * 60 * 1000;
-    //bro this is so jank
-    if (
-      date < new Date().setTime(new Date().getTime() - subtract) &&
-      change === 1
-    )
-      setDate(new Date(date.setDate(date.getDate() + change)));
-    else if (date > new Date(2023, 2, 27) && change === -1)
-      setDate(new Date(date.setDate(date.getDate() + change)));
-  };
-
   return (
     <QueryClientProvider client={queryClient}>
       <Header user={user} setUser={setUser} />
-      <WordHeader dateIn={date} changeDate={changeDate} />
+      <WordHeader />
       <WordDisplay />
-      <Word
+      {/* <Word
         selectedUser={user}
         selectedWord={selectedWord}
         likedWords={likedWords}
         setLikedWords={setLikedWords}
-      />
+      /> */}
     </QueryClientProvider>
   );
 };

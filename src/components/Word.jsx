@@ -3,7 +3,8 @@ import userService from "../services/user";
 import wordService from "../services/words";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
-const Word = ({ selectedUser, selectedWord, likedWords, setLikedWords }) => {
+const Word = ({selectedWord}) => {
+    console.log(selectedWord)
     const handleEtymology = () => {
         if (selectedWord) {
             return parse(selectedWord.etymology);
@@ -11,59 +12,59 @@ const Word = ({ selectedUser, selectedWord, likedWords, setLikedWords }) => {
         return null;
     };
 
-    const likeWord = async (event) => {
-        event.preventDefault();
-        const id = selectedUser.id;
-        const user = await userService.getUser(id);
-        user.words = user.words.map((word) => word.id);
-        const newWords = user.words.concat(selectedWord.id);
-        const newUser = {
-            ...user,
-            words: newWords,
-        };
-        await userService.update(id, newUser);
-        await wordService.update(selectedWord.id, {
-            ...selectedWord,
-            likes: 0,
-        });
-        setLikedWords(newWords);
+    // const likeWord = async (event) => {
+    //     event.preventDefault();
+    //     const id = selectedUser.id;
+    //     const user = await userService.getUser(id);
+    //     user.words = user.words.map((word) => word.id);
+    //     const newWords = user.words.concat(selectedWord.id);
+    //     const newUser = {
+    //         ...user,
+    //         words: newWords,
+    //     };
+    //     await userService.update(id, newUser);
+    //     await wordService.update(selectedWord.id, {
+    //         ...selectedWord,
+    //         likes: 0,
+    //     });
+    //     setLikedWords(newWords);
 
-    };
+    // };
 
-    const unlikeWord = async (event) => {
-        event.preventDefault();
-        const id = selectedUser.id;
-        const user = await userService.getUser(id);
-        user.words = user.words.map((word) => word.id);
-        const newWords = user.words.filter((word) => word != selectedWord.id);
-        const newUser = {
-            ...user,
-            words: newWords,
-        };
-        await userService.update(id, newUser);
-        await wordService.update(selectedWord.id, {
-          ...selectedWord,
-          likes: 0,
-      });
+    // const unlikeWord = async (event) => {
+    //     event.preventDefault();
+    //     const id = selectedUser.id;
+    //     const user = await userService.getUser(id);
+    //     user.words = user.words.map((word) => word.id);
+    //     const newWords = user.words.filter((word) => word != selectedWord.id);
+    //     const newUser = {
+    //         ...user,
+    //         words: newWords,
+    //     };
+    //     await userService.update(id, newUser);
+    //     await wordService.update(selectedWord.id, {
+    //       ...selectedWord,
+    //       likes: 0,
+    //   });
 
-        setLikedWords(newWords);
+    //     setLikedWords(newWords);
 
-    };
+    // };
 
-    const checkLiked = (id) => {
-        if (likedWords.includes(id)) {
-            return true;
-        }
-        return false;
-    };
+    // const checkLiked = (id) => {
+    //     if (likedWords.includes(id)) {
+    //         return true;
+    //     }
+    //     return false;
+    // };
 
-    const filledHeart = () => (
-        <AiFillHeart className='heart' onClick={unlikeWord} />
-    );
+    // const filledHeart = () => (
+    //     <AiFillHeart className='heart' onClick={unlikeWord} />
+    // );
 
-    const emptyHeart = () => (
-        <AiOutlineHeart className='heart' onClick={likeWord} />
-    );
+    // const emptyHeart = () => (
+    //     <AiOutlineHeart className='heart' onClick={likeWord} />
+    // );
 
     return (
         <div className='word'>
@@ -71,9 +72,6 @@ const Word = ({ selectedUser, selectedWord, likedWords, setLikedWords }) => {
                 <div className='magic'>
                     <h1 className='text'>
                         {selectedWord?.word}
-                        {checkLiked(selectedWord?.id)
-                            ? filledHeart()
-                            : emptyHeart()}
                     </h1>
                 </div>
             </div>

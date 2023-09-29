@@ -1,5 +1,6 @@
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import wordService from "../services/words";
+import Word from "./Word";
 
 const WordDisplay = () => {
   const queryClient = useQueryClient();
@@ -21,6 +22,11 @@ const WordDisplay = () => {
   }
 
   console.log(words.data[0]);
+  return (
+    <div>
+      <Word selectedWord={words.data[0]} />
+    </div>
+  )
 };
 
 export default WordDisplay;

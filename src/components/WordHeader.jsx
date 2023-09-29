@@ -1,6 +1,6 @@
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { useDateValue, useDateDispatch } from "../contexts/DateContext";
-const WordHeader = ({ changeDate, dateIn }) => {
+const WordHeader = () => {
   const monthNames = [
     "January",
     "February",
@@ -18,15 +18,17 @@ const WordHeader = ({ changeDate, dateIn }) => {
 
   const dispatch = useDateDispatch();
   const date = useDateValue();
+
   const day = date.getDate();
   let month = monthNames[date.getMonth()];
+  const subtract = 24 * 60 * 60 * 1000;
+  const today = new Date().setTime(new Date().getTime() - subtract)
 
   if (screen.width < 800) month = month.substring(0, 3);
   const year = date.getFullYear();
 
   const checkRight = () => {
-    const subtract = 24 * 60 * 60 * 1000;
-    if (date < new Date().setTime(new Date().getTime() - subtract))
+    if (date < today)
       return (
         <AiOutlineArrowRight
           className="arrow"
