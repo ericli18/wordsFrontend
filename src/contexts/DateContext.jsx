@@ -25,7 +25,7 @@ const dateReducer = ( state = new Date(), action ) => {
 const DateContext = createContext()
 
 export const DateContextProvider = (props) => {
-  const [date, dateDispatch] = useReducer(counterReducer, 0)
+  const [date, dateDispatch] = useReducer(dateReducer, 0)
 
   return (
     <DateContext.Provider value={[date, dateDispatch] }>
