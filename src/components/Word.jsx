@@ -69,7 +69,7 @@ const Word = ({selectedWord}) => {
     return (
         <div className='word'>
             <div className='important'>
-                <div className='magic'>
+                <div className='magic important'>
                     <h1 className='text'>
                         {selectedWord?.word}
                     </h1>

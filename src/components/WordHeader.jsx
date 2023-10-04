@@ -1,5 +1,6 @@
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { useDateValue, useDateDispatch } from "../contexts/DateContext";
+import dayjs from "dayjs";
 const WordHeader = () => {
   const monthNames = [
     "January",
@@ -17,15 +18,14 @@ const WordHeader = () => {
   ];
 
   const dispatch = useDateDispatch();
-  const date = useDateValue();
+  const date = dayjs(useDateValue());
 
-  const day = date.getDate();
-  let month = monthNames[date.getMonth()];
-  const subtract = 24 * 60 * 60 * 1000;
-  const today = new Date().setTime(new Date().getTime() - subtract)
+  const day = date.date();
+  let month = monthNames[date.month()];
+  const today = dayjs()
 
   if (screen.width < 800) month = month.substring(0, 3);
-  const year = date.getFullYear();
+  const year = date.year();
 
   const checkRight = () => {
     if (date < today)

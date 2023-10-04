@@ -1,11 +1,11 @@
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import wordService from "../services/words";
 import Word from "./Word";
+import { randomWord } from "./wordHelper";
+import dayjs from "dayjs";
 
 const WordDisplay = () => {
-  const queryClient = useQueryClient();
-
-  const words = useQuery({
+  const {isLoading, isError, data} = useQuery({
     queryKey: ["words"],
     queryFn: wordService.getAll,
     refetchOnWindowFocus: false,
@@ -13,18 +13,17 @@ const WordDisplay = () => {
     staleTime: 1000 * 60 * 5,
   });
 
-  if (words.isLoading) {
+  if (isLoading) {
     return <div>fetching words</div>;
   }
 
-  if (words.isError) {
+  if (isError) {
     return <div>error</div>;
   }
 
-  console.log(words.data[0]);
   return (
     <div>
-      <Word selectedWord={words.data[0]} />
+      <Word selectedWord={randomWord(data, dayjs().format())} />
     </div>
   )
 };
