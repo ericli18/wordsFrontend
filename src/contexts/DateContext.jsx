@@ -2,13 +2,8 @@ import { createContext, useReducer, useContext } from "react";
 import dayjs from "dayjs";
 
 const changeDate = (date, change) => {
-  if (
-    date < dayjs().startOf('d') &&
-    change === 1
-  )
-    return dayjs().add(1, 'd');
-  else if (date > dayjs(new Date(2023, 2, 27)) && change === -1)
-    return dayjs().subtract(1, 'd');
+  if (change === 1) return dayjs(date).add(1, "d");
+  else if (change === -1) return dayjs(date).subtract(1, "d");
 };
 
 const dateReducer = (state, action) => {

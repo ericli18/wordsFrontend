@@ -1,6 +1,7 @@
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { useDateValue, useDateDispatch } from "../contexts/DateContext";
 import dayjs from "dayjs";
+
 const WordHeader = () => {
   const monthNames = [
     "January",
@@ -22,16 +23,17 @@ const WordHeader = () => {
 
   const day = date.date();
   let month = monthNames[date.month()];
-  const today = dayjs()
+  const today = dayjs();
 
   if (screen.width < 800) month = month.substring(0, 3);
   const year = date.year();
+  // console.log(date.isSame(today, 'd'))
 
   const checkRight = () => {
-    if (date < today)
+    if (date.isBefore(today, "d"))
       return (
         <AiOutlineArrowRight
-          className="arrow"
+          className='arrow'
           onClick={() => dispatch({ type: "INC" })}
         />
       );
@@ -39,10 +41,10 @@ const WordHeader = () => {
   };
 
   const checkLeft = () => {
-    if (date > new Date(2023, 2, 27))
+    if (date.isAfter(dayjs("2023-09-13"), "d"))
       return (
         <AiOutlineArrowLeft
-          className="arrow"
+          className='arrow'
           onClick={() => dispatch({ type: "DEC" })}
         />
       );
@@ -51,14 +53,14 @@ const WordHeader = () => {
 
   return (
     <header>
-      <div className="headerLeft">{checkLeft()}</div>
+      <div className='headerLeft'>{checkLeft()}</div>
 
-      <div className="headerCenter">
+      <div className='headerCenter'>
         <h1>
           {month} {day}, {year}
         </h1>
       </div>
-      <div className="headerRight">{checkRight()}</div>
+      <div className='headerRight'>{checkRight()}</div>
     </header>
   );
 };
