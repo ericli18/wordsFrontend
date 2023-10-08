@@ -27,8 +27,8 @@ const remove = async (id) => {
     return response.data;
 };
 
-const update = async (id, date) => {
-    const response = axios.put(`${baseUrl}/${id}`, date);
+const update = async (id, word) => {
+    const response = axios.put(`${baseUrl}/${id}`, word);
     return response.data;
 };
 

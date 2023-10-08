@@ -16,7 +16,6 @@ const LoginForm = () => {
             const user = await loginService.login({ username, password });
             dispatchUser({ type: "SET_USER", payload: user });
             wordService.setToken(user.token);
-
             window.localStorage.setItem("loggedUser", JSON.stringify(user));
             setUsername("");
             setPassword("");
