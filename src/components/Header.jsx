@@ -1,9 +1,9 @@
 import LoginForm from "./LoginForm";
 
-const Header = ({ user, setUser }) => {
+const Header = () => {
   return (
     <div>
-      <LoginForm user={user} setUser={setUser}/>
+      <LoginForm/>
     </div>
   );
 };

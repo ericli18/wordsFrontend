@@ -23,7 +23,7 @@ const WordDisplay = () => {
 
   return (
     <div>
-      <Word selectedWord={randomWord(data, dayjs().format())} />
+      <Word selectedWord={randomWord(data, dayjs())} />
     </div>
   )
 };

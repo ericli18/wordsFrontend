@@ -8,6 +8,6 @@ export const randomWord = (words, date) => {
   if (!words || words.length === 0) {
     return null;
   }
-  const accessedWord = words.find(word => word.accessDate === date);
-  return words[randomNum(0, words.length - 1)];
+  const accessedWord = words.find(word => dayjs(word.accessDate).isSame(date, 'D'));
+  return accessedWord ? accessedWord : words[randomNum(0, words.length - 1)];
 }

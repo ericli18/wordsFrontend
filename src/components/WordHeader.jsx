@@ -54,7 +54,6 @@ const WordHeader = () => {
   return (
     <header>
       <div className='headerLeft'>{checkLeft()}</div>
-
       <div className='headerCenter'>
         <h1>
           {month} {day}, {year}

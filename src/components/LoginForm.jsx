@@ -1,16 +1,20 @@
 import loginService from "../services/login";
 import wordService from "../services/words";
 import { useState } from "react";
+import { useUserDispatch, useUserValue } from "../contexts/UserContext";
 
-const LoginForm = ({ user, setUser }) => {
+const LoginForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const dispatchUser = useUserDispatch();
+    const user = useUserValue();
+
 
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
             const user = await loginService.login({ username, password });
-            setUser(user);
+            dispatchUser({ type: "SET_USER", payload: user });
             wordService.setToken(user.token);
 
             window.localStorage.setItem("loggedUser", JSON.stringify(user));
@@ -24,7 +28,7 @@ const LoginForm = ({ user, setUser }) => {
     const handleLogout = async (event) => {
         event.preventDefault();
         window.localStorage.removeItem("loggedUser");
-        setUser(null);
+        dispatchUser({ type: "CLEAR_USER" });
     };
 
     const loginForm = () => (

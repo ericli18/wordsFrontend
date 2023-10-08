@@ -13,14 +13,14 @@ const dateReducer = (state, action) => {
     case "DEC":
       return changeDate(state, -1);
     case "ZERO":
-      return new Date();
+      return dayjs();
   }
 };
 
 const DateContext = createContext();
 
 export const DateContextProvider = (props) => {
-  const [date, dateDispatch] = useReducer(dateReducer, new Date());
+  const [date, dateDispatch] = useReducer(dateReducer, dayjs());
 
   return (
     <DateContext.Provider value={[date, dateDispatch]}>
