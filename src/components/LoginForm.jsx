@@ -2,13 +2,14 @@ import loginService from "../services/login";
 import wordService from "../services/words";
 import { useState } from "react";
 import { useUserDispatch, useUserValue } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const dispatchUser = useUserDispatch();
     const user = useUserValue();
-
+    const navigate = useNavigate();
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -19,6 +20,7 @@ const LoginForm = () => {
             window.localStorage.setItem("loggedUser", JSON.stringify(user));
             setUsername("");
             setPassword("");
+            navigate("/");
         } catch (exception) {
             console.log(exception);
         }

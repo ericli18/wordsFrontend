@@ -1,9 +1,20 @@
-import LoginForm from "./LoginForm";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div>
-      <LoginForm/>
+    <div className="headerMain">
+      <Link to={`/`}>
+        home
+      </Link>
+      <Link to={`/about`}>
+        about
+      </Link>
+      <Link to={'/words'}>
+        liked
+      </Link>
+      <Link to={`/login`}>
+        login
+      </Link>
     </div>
   );
 };

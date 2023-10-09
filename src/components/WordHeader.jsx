@@ -41,7 +41,7 @@ const WordHeader = () => {
   };
 
   const checkLeft = () => {
-    if (date.isAfter(dayjs("2023-09-13"), "d"))
+    if (date.isAfter(dayjs("2023-09-29"), "d"))
       return (
         <AiOutlineArrowLeft
           className='arrow'

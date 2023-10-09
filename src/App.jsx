@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import wordService from "./services/words";
-import WordHeader from "./components/WordHeader";
 import Header from "./components/Header";
 import WordDisplay from "./components/WordDisplay";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useUserDispatch } from "./contexts/UserContext";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -21,9 +21,10 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Header />
-      <WordHeader />
-      <WordDisplay />
+      <Router>
+        <Header />
+        <WordDisplay />
+      </Router>
     </QueryClientProvider>
   );
 };
