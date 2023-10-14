@@ -17,7 +17,7 @@ const LikedDisplay = ({ user }) => {
   return (
     <div>
       <h2>Liked words</h2>
-      <div>
+      <div className="card-container">
         {words.map((word) => (
           <WordCard key={word.id} word={word} />
         ))}
