@@ -12,6 +12,8 @@ const dateReducer = (state, action) => {
       return changeDate(state, 1);
     case "DEC":
       return changeDate(state, -1);
+    case "SET":
+      return action.data;
     case "ZERO":
       return dayjs();
   }

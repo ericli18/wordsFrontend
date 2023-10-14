@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import { useDateDispatch } from "../contexts/DateContext";
 
 const Header = () => {
+  const dateDispatch = useDateDispatch();
   return (
     <div className="headerMain">
-      <Link to={`/`}>
+      <Link to={`/`} onClick={() => dateDispatch({type: "ZERO"})}>
         home
       </Link>
       <Link to={`/about`}>
