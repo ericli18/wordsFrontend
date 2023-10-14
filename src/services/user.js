@@ -16,4 +16,9 @@ const update = async (id, newUser) => {
   return response.data;
 };
 
-export default { getUser, getWords, update };
+const create = async (newUser) => {
+  const response = await axios.post(baseUrl, newUser);
+  return response.data;
+}
+
+export default { getUser, getWords, update, create };

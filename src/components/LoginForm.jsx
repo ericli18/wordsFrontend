@@ -20,7 +20,7 @@ const LoginForm = () => {
             window.localStorage.setItem("loggedUser", JSON.stringify(user));
             setUsername("");
             setPassword("");
-            navigate("/");
+            navigate("/words");
         } catch (exception) {
             console.log(exception);
         }
