@@ -1,19 +1,22 @@
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import userService from "../services/user";
 import wordService from "../services/words";
-import { useMutation, useQueryClient } from "react-query";
-const Heart = () => {
-  const queryClient = useQueryClient();
-
-  const likeWordMutation = useMutation(wordService.likeWord, {
-    onSuccess: (newWord) => {
-      const words = queryClient.getQueryData("words");
-      const updatedWords = words.map((word) =>
-        word.id === newWord.id ? newWord : word
-      );
-      queryClient.setQueryData("words", updatedWords);
-    },
-  });
+import { useEffect, useState } from "react";
+const Heart = ({ selectedUser, selectedWord }) => {
+  const [likedWords, setLikedWords] = useState([]);
+  useEffect(() => {
+    const getWords = async () => {
+      try {
+        const words = await userService.getWords(selectedUser.id);
+        setLikedWords(words.map((word) => word.id));
+      } catch (exception) {
+        console.log(exception);
+      }
+    };
+    if (selectedUser !== null) {
+      getWords();
+    }
+  }, [selectedUser]);
 
   const likeWord = async (event) => {
     event.preventDefault();
@@ -26,9 +29,9 @@ const Heart = () => {
       words: newWords,
     };
     await userService.update(id, newUser);
-    await wordService.update(selectedWord.id, {
+    await wordService.update({
       ...selectedWord,
-      likes: 0,
+      likes: selectedWord.likes + 1,
     });
     setLikedWords(newWords);
   };
@@ -44,9 +47,9 @@ const Heart = () => {
       words: newWords,
     };
     await userService.update(id, newUser);
-    await wordService.update(selectedWord.id, {
+    await wordService.update({
       ...selectedWord,
-      likes: 0,
+      likes: selectedWord.likes - 1,
     });
 
     setLikedWords(newWords);
@@ -59,6 +62,10 @@ const Heart = () => {
   const emptyHeart = () => (
     <AiOutlineHeart className='heart' onClick={likeWord} />
   );
+
+  const liked = likedWords.includes(selectedWord.id);
+
+  return <div>{liked ? filledHeart() : emptyHeart()}</div>;
 };
 
 export default Heart;

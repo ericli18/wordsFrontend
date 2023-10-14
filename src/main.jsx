@@ -5,6 +5,7 @@ import "./index.css";
 import "normalize.css";
 import { DateContextProvider } from "./contexts/DateContext";
 import { UserContextProvider } from "./contexts/UserContext";
+import { LikedContextProvider } from "./contexts/LikedContext";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
@@ -12,11 +13,13 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
-    <UserContextProvider>
-      <DateContextProvider>
-        <App />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </DateContextProvider>
-    </UserContextProvider>
+    <LikedContextProvider>
+      <UserContextProvider>
+        <DateContextProvider>
+          <App />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </DateContextProvider>
+      </UserContextProvider>
+    </LikedContextProvider>
   </QueryClientProvider>
 );

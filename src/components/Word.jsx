@@ -1,16 +1,20 @@
 import parse from "html-react-parser";
 import WordHeader from "./WordHeader";
 import { randomWord } from "./wordHelper";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs"; //necessary for date formatting
 import wordService from "../services/words";
 import { useDateDispatch, useDateValue } from "../contexts/DateContext";
 import { useEffect } from "react";
+import Heart from "./Heart";
+import { useUserValue } from "../contexts/UserContext";
 
 const Word = ({ words, date }) => {
   const queryClient = useQueryClient();
   const dateDispatch = useDateDispatch();
   const dateValue = useDateValue();
+  const user = useUserValue();
+
   useEffect(() => {
     dateDispatch({ type: "SET", data: date });
   }, []);
@@ -39,6 +43,7 @@ const Word = ({ words, date }) => {
         <div className='important'>
           <div className='magic important'>
             <h1 className='text'>{selectedWord?.word}</h1>
+            <Heart selectedUser={user} selectedWord={selectedWord} className='heart'/>
           </div>
         </div>
         <div className='info'>

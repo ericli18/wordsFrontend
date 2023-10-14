@@ -1,14 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import userService from "../../services/user";
 import WordCard from "./WordCard";
+import { useLikedDispatch } from "../../contexts/LikedContext";
 
 const LikedDisplay = ({ user }) => {
+  const likedDispatch = useLikedDispatch();
+
   if (!user) {
     return <div>please login</div>;
   }
   const { isLoading, error, data } = useQuery({
     queryKey: ["user"],
     queryFn: () => userService.getUser(user.id),
+    onSuccess: (data) => {
+      likedDispatch({ type: "SET_LIKED", payload: data.words });
+    },
   });
 
   if (isLoading) return "Loading...";
