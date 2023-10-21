@@ -18,7 +18,7 @@ const Word = ({ words, date }) => {
   useEffect(() => {
     dateDispatch({ type: "SET", data: date });
   }, []);
-  let currentDate = dayjs(date).isSame(dateValue, "d")? date : dateValue;
+  let currentDate = dayjs(date).isSame(dateValue, "d") ? date : dateValue;
   currentDate = dayjs(currentDate).format();
   const selectedWord = randomWord(words, currentDate);
   const handleEtymology = () => {
@@ -43,7 +43,13 @@ const Word = ({ words, date }) => {
         <div className='important'>
           <div className='magic important'>
             <h1 className='text'>{selectedWord?.word}</h1>
-            <Heart selectedUser={user} selectedWord={selectedWord} className='heart'/>
+            {user ? (
+              <Heart
+                selectedUser={user}
+                selectedWord={selectedWord}
+                className='heart'
+              />
+            ) : null}
           </div>
         </div>
         <div className='info'>

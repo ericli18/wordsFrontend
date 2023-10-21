@@ -1,21 +1,22 @@
 import { Link } from "react-router-dom";
 import { useDateDispatch } from "../contexts/DateContext";
+import { AiOutlineHome } from "react-icons/ai";
 
 const Header = () => {
   const dateDispatch = useDateDispatch();
   return (
     <div className="headerMain">
       <Link to={`/`} onClick={() => dateDispatch({type: "ZERO"})}>
-        home
+        Home
       </Link>
       <Link to={`/about`}>
-        about
+        About
       </Link>
       <Link to={'/words'}>
-        liked
+        Liked
       </Link>
       <Link to={`/login`}>
-        login
+        Login
       </Link>
     </div>
   );
