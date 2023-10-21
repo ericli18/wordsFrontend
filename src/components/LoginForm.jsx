@@ -26,12 +26,6 @@ const LoginForm = () => {
         }
     };
 
-    const handleLogout = async (event) => {
-        event.preventDefault();
-        window.localStorage.removeItem("loggedUser");
-        dispatchUser({ type: "CLEAR_USER" });
-    };
-
     const loginForm = () => (
         <form onSubmit={handleLogin}>
             <div>
@@ -56,16 +50,7 @@ const LoginForm = () => {
         </form>
     );
 
-    const welcomeForm = () => (
-        <div>
-            <div>Welcome, {user.username}!</div>
-            <form onSubmit={handleLogout}>
-                <button type='submit'>log out</button>
-            </form>
-        </div>
-    );
-
-    return <div>{user === null ? loginForm() : welcomeForm()}</div>;
+    return <div>{loginForm()}</div>;
 };
 
 export default LoginForm;

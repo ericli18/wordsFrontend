@@ -88,6 +88,7 @@ html {
   color: white;
   user-select: none;
   -webkit-user-select: none;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 header {
@@ -248,6 +249,7 @@ h3.card-title {
 
 .card-container {
   display: flex;
+  justify-content: center;
   height: 100%;
   flex-wrap: wrap;
 }
@@ -282,4 +284,19 @@ h3.card-title {
 .magic.important{
   display: flex;
   align-items: center;
+}
+
+.liked-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3rem
+}
+
+.about-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3rem;
+  font-size: 1.2rem;
 }

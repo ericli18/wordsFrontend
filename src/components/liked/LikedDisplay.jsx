@@ -7,7 +7,7 @@ const LikedDisplay = ({ user }) => {
   const likedDispatch = useLikedDispatch();
 
   if (!user) {
-    return <div>please login</div>;
+    return <h2 className="liked-header">please login</h2>;
   }
   const { isLoading, error, data } = useQuery({
     queryKey: ["user"],
@@ -21,14 +21,14 @@ const LikedDisplay = ({ user }) => {
   if (error) return "An error has occurred: " + error.message;
   const words = data.words;
   return (
-    <div>
-      <h2>Liked words</h2>
+    <>
+      <h2 className="liked-header">Liked words</h2>
       <div className="card-container">
         {words.map((word) => (
           <WordCard key={word.id} word={word} />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 export default LikedDisplay;
